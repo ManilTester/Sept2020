@@ -21,9 +21,8 @@ namespace September2020.Step_Definition
         [BeforeScenario]
         public void LoginToTurnup()
         {
-            //System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location)   
             // web driver
-            driver = new ChromeDriver();
+            driver = new ChromeDriver(System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location));
 
             //obj init and define for loginpage
             LoginPage loginObject = new LoginPage();
@@ -84,18 +83,17 @@ namespace September2020.Step_Definition
         [When(@"I create entries using values from table :")]
         public void WhenICreateEntriesUsingValuesFromTable(Table table)
         {
-
+            var code = string.Empty ;
+            var desc = string.Empty;
             var data = table;
             var TMPage = new TMpage();
-            var x = data.Rows[0][0]; // code
-            //data.Rows[0].items[1] // desc
 
-            //data.Rows;
-            //for (var i = 0; i < data.Rows.Count; i++)
-            //{
-            //    code = data.Rows[0].Values
-            //    TMPage.CreateTMWithValues(driver, code, desc);
-            //}
+            for (var i = 0; i < data.Rows.Count; i++)
+            {
+                code = data.Rows[i]["code"];
+                desc = data.Rows[i]["desc"];
+                TMPage.CreateTMWithValues(driver, code, desc);
+            }
         }
 
     }

@@ -14,7 +14,16 @@ namespace September2020.helpers
         public static IWebDriver driver;
 
         [OneTimeSetUp]
-      
+        public void LoginToTurnup()
+        {
+               
+            // web driver
+            driver = new ChromeDriver(System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location));
+
+            //obj init and define for loginpage
+            LoginPage loginObject = new LoginPage();
+            loginObject.LoginSteps(driver);
+        }
 
         [OneTimeTearDown]
         public void TestClousure()
